@@ -182,9 +182,9 @@ class DocumentMetaWrapper(MutableMapping):
                         else:
                             flat.append((choice, value))
                 f.flatchoices = flat
-            if isinstance(f, ReferenceField) and not \
-                    isinstance(f.document_type._meta, (DocumentMetaWrapper, LazyDocumentMetaWrapper)) and \
-                    self.document != f.document_type:
+            if isinstance(f, ReferenceField) and \
+                    self.document != f.document_type and \
+                    isinstance(f.document_type._meta, (DocumentMetaWrapper, LazyDocumentMetaWrapper)):
                 f.document_type._meta = LazyDocumentMetaWrapper(f.document_type)
             if not hasattr(f, 'auto_created'):
                 f.auto_created = False
